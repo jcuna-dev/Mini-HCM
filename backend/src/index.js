@@ -1,37 +1,44 @@
-const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
+const express = require("express");
+const cors = require("cors");
 
-const authRoutes = require('./routes/auth');
-const attendanceRoutes = require('./routes/attendance');
-const summaryRoutes = require('./routes/summary');
-const adminRoutes = require('./routes/admin');
-const { apiLimiter, authLimiter } = require('./middleware/rateLimiter');
+const authRoutes = require("./routes/auth");
+const attendanceRoutes = require("./routes/attendance");
+const summaryRoutes = require("./routes/summary");
+const adminRoutes = require("./routes/admin");
+const { apiLimiter, authLimiter } = require("./middleware/rateLimiter");
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+
+/**
+ * Required for Firebase / Cloud Functions
+ * so rate-limit and IP detection work correctly
+ */
+app.set("trust proxy", 1);
 
 // Middleware
-app.use(cors());
+app.use(cors({ origin: true }));
 app.use(express.json());
 
-// Apply rate limiting to all API routes
-app.use('/api', apiLimiter);
-
-// Apply stricter rate limiting to auth routes
-app.use('/api/auth', authLimiter);
+// Apply rate limiting
+app.use("/api", apiLimiter);
+app.use("/api/auth", authLimiter);
 
 // Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/attendance', attendanceRoutes);
-app.use('/api/summary', summaryRoutes);
-app.use('/api/admin', adminRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/attendance", attendanceRoutes);
+app.use("/api/summary", summaryRoutes);
+app.use("/api/admin", adminRoutes);
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+// Health check
+app.get("/api/health", (req, res) => {
+  res.json({
+    status: "ok",
+    timestamp: new Date().toISOString(),
+  });
 });
 
+// Start server
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
