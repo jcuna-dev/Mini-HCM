@@ -1,0 +1,28 @@
+{
+  "name": "hcm-backend",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node src/index.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "hcm",
+    "time-tracking",
+    "attendance"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "HCM Time Tracking Backend API",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "firebase-admin": "^13.6.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}

@@ -1,0 +1,259 @@
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.dashboard-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #0a2543;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.dashboard-header {
+  margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.schedule-info {
+  color: #666;
+  font-size: 14px;
+}
+
+.error-banner {
+  background: #fee2e2;
+  color: #dc2626;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+/* Punch Section */
+.punch-section {
+  margin-bottom: 30px;
+}
+
+.punch-card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.punch-card h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.punch-status {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.status-indicator {
+  display: inline-block;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.status-indicator.active {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.status-indicator.inactive {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.elapsed-time {
+  margin-top: 15px;
+}
+
+.time-label {
+  color: #666;
+  margin-right: 10px;
+}
+
+.time-value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #0a2543;
+  font-family: monospace;
+}
+
+.punch-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.punch-btn {
+  padding: 15px 40px;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.punch-btn.punch-in {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  color: white;
+}
+
+.punch-btn.punch-out {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.punch-btn:hover:not(.disabled):not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+.punch-btn.disabled,
+.punch-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.punch-info {
+  text-align: center;
+  margin-top: 15px;
+  color: #666;
+}
+
+/* Summary Section */
+.summary-section {
+  margin-bottom: 30px;
+}
+
+.summary-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.kpi-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.kpi-card.warning {
+  border-left: 4px solid #f59e0b;
+}
+
+.kpi-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.kpi-icon.total { background: #e0e7ff; }
+.kpi-icon.regular { background: #dcfce7; }
+.kpi-icon.overtime { background: #fef3c7; }
+.kpi-icon.night { background: #e0e7ff; }
+.kpi-icon.late { background: #fee2e2; }
+.kpi-icon.undertime { background: #fef3c7; }
+
+.kpi-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-label {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.kpi-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+}
+
+/* Week Summary */
+.week-summary {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.week-stat {
+  text-align: center;
+  padding: 15px;
+  background: #f8fafc;
+  border-radius: 8px;
+}
+
+.week-label {
+  display: block;
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.week-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0a2543;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .punch-buttons {
+    flex-direction: column;
+  }
+  
+  .punch-btn {
+    width: 100%;
+  }
+  
+  .time-value {
+    font-size: 24px;
+  }
+}
