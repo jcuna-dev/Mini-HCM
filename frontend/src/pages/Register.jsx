@@ -37,10 +37,23 @@ const Register = () => {
       await register(formData.email, formData.password, formData.name);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message || 'Failed to create account');
+      const errorMessage = getAuthErrorMessage(err.code || err.message);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
+  };
+
+  const getAuthErrorMessage = (errorCode) => {
+    const errorMessages = {
+      'auth/email-already-in-use': 'An account with this email already exists.',
+      'auth/invalid-email': 'Please enter a valid email address.',
+      'auth/weak-password': 'Password is too weak. Please use a stronger password.',
+      'auth/operation-not-allowed': 'Registration is currently disabled. Please contact support.',
+      'auth/network-request-failed': 'Network error. Please check your internet connection.',
+      'auth/too-many-requests': 'Too many attempts. Please try again later.',
+    };
+    return errorMessages[errorCode] || 'An error occurred. Please try again.';
   };
 
   return (

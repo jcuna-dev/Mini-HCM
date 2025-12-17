@@ -20,10 +20,24 @@ const Login = () => {
       await login(email, password);
       navigate('/dashboard');
     } catch (err) {
-      setError(err.message || 'Failed to log in');
+      const errorMessage = getAuthErrorMessage(err.code || err.message);
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
+  };
+
+  const getAuthErrorMessage = (errorCode) => {
+    const errorMessages = {
+      'auth/invalid-credential': 'Invalid email or password. Please check your credentials and try again.',
+      'auth/user-not-found': 'No account found with this email address.',
+      'auth/wrong-password': 'Incorrect password. Please try again.',
+      'auth/invalid-email': 'Please enter a valid email address.',
+      'auth/user-disabled': 'This account has been disabled. Please contact support.',
+      'auth/too-many-requests': 'Too many failed attempts. Please try again later.',
+      'auth/network-request-failed': 'Network error. Please check your internet connection.',
+    };
+    return errorMessages[errorCode] || 'An error occurred. Please try again.';
   };
 
   return (
